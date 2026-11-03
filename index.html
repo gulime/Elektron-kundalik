@@ -1,0 +1,862 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  New Content
+</body>
+</html> 
+ HTML
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talabalar elektron kundaligi</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #263445;
+}
+
+header {
+    background: #137547;
+    color: white;
+    text-align: center;
+    padding: 25px 12px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+nav {
+    background: #0d5935;
+    padding: 12px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.container {
+    width: 96%;
+    max-width: 1400px;
+    margin: 22px auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.card, .panel {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000010;
+}
+
+.card {
+    text-align: center;
+}
+
+.card h3 {
+    color: #137547;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.panel {
+    margin-bottom: 22px;
+}
+
+h2 {
+    color: #137547;
+    margin-bottom: 18px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+label {
+    font-size: 13px;
+    color: #475569;
+}
+
+label input, label select {
+    margin-top: 6px;
+}
+
+button {
+    background: #137547;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #0d5935;
+}
+
+.search {
+    margin-bottom: 15px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #dbe3eb;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+th {
+    background: #137547;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background: #f1f8f4;
+}
+
+.small-btn {
+    width: auto;
+    padding: 8px;
+    margin: 2px;
+}
+
+.delete {
+    background: #d93636;
+}
+
+.delete:hover {
+    background: #a82020;
+}
+
+.secondary {
+    background: #2563eb;
+}
+
+.secondary:hover {
+    background: #1d4ed8;
+}
+
+.notice {
+    background: #ecfdf5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    color: #166534;
+}
+
+footer {
+    background: #0d5935;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media(max-width: 500px) {
+    header h1 {
+        font-size: 21px;
+    }
+
+    .panel, .card {
+        padding: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 Talabalarning elektron kundaligi</h1>
+    <p>Talabalar, fakultetlar, baholar, davomat va dars jadvali</p>
+</header>
+
+<nav>
+    <a href="#bosh">Bosh sahifa</a>
+    <a href="#talabaQoshish">Talaba qo‘shish</a>
+    <a href="#talabalar">Talabalar</a>
+    <a href="#jadval">Dars jadvali</a>
+    <a href="#baholar">Baholar</a>
+</nav>
+
+<div class="container" id="bosh">
+
+    <div class="cards">
+        <div class="card">
+            <h3>Talabalar soni</h3>
+            <p id="total">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Darslar soni</h3>
+            <p id="lessonTotal">0</p>
+        </div>
+
+        <div class="card">
+            <h3>O‘rtacha baho</h3>
+            <p id="average">0.00</p>
+        </div>
+
+        <div class="card">
+            <h3>Davomat</h3>
+            <p id="attendance">0%</p>
+        </div>
+    </div>
+
+    <!-- TALABA QO'SHISH -->
+    <section class="panel" id="talabaQoshish">
+        <h2>👨‍🎓 Talaba haqida ma'lumot</h2>
+
+        <form id="studentForm">
+            <input id="name" placeholder="Ism" required>
+            <input id="surname" placeholder="Familiya" required>
+
+            <input id="studentId" placeholder="Talaba ID raqami" required>
+
+            <input id="group" placeholder="Guruh raqami" required>
+
+            <label>
+                Tug‘ilgan sana
+                <input id="birthDate" type="date" required>
+            </label>
+
+            <input id="address" placeholder="Yashash manzili" required>
+
+            <input id="phone" type="tel" placeholder="Telefon raqami">
+
+            <input id="email" type="email" placeholder="Elektron pochta">
+
+            <select id="faculty" required>
+                <option value="">Fakultetni tanlang</option>
+                <option>Axborot texnologiyalari fakulteti</option>
+                <option>Iqtisodiyot fakulteti</option>
+                <option>Pedagogika fakulteti</option>
+                <option>Filologiya fakulteti</option>
+                <option>Matematika fakulteti</option>
+                <option>Tabiiy fanlar fakulteti</option>
+                <option>Boshqa fakultet</option>
+            </select>
+
+            <input id="direction" placeholder="Ta'lim yo‘nalishi" required>
+
+            <select id="course" required>
+                <option value="">Kursni tanlang</option>
+                <option>1-kurs</option>
+                <option>2-kurs</option>
+                <option>3-kurs</option>
+                <option>4-kurs</option>
+                <option>5-kurs</option>
+                <option>6-kurs</option>
+            </select>
+
+            <select id="education" required>
+                <option value="">Ta'lim shakli</option>
+                <option>Kunduzgi</option>
+                <option>Sirtqi</option>
+                <option>Kechki</option>
+                <option>Masofaviy</option>
+            </select>
+
+            <select id="subject" required>
+                <option value="">Fanni tanlang</option>
+                <option>Matematika</option>
+                <option>Informatika</option>
+                <option>Ingliz tili</option>
+                <option>Fizika</option>
+                <option>Mobil ilovalar</option>
+                <option>Dasturlash</option>
+                <option>Ma'lumotlar bazasi</option>
+                <option>Kompyuter tarmoqlari</option>
+            </select>
+
+            <input id="grade" type="number" min="0" max="100"
+                   placeholder="Baho (0–100)" required>
+
+            <select id="attendanceInput" required>
+                <option value="">Davomat</option>
+                <option value="Keldi">Keldi</option>
+                <option value="Kelmadi">Kelmadi</option>
+            </select>
+
+            <button type="submit">Talabani saqlash</button>
+        </form>
+    </section>
+
+    <!-- TALABALAR RO'YXATI -->
+    <section class="panel" id="talabalar">
+        <h2>📋 Talabalar ro‘yxati</h2>
+
+        <input class="search" id="studentSearch"
+               placeholder="Ism, ID, guruh, fakultet yoki yo‘nalish bo‘yicha qidirish...">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>ID</th>
+                        <th>Ism</th>
+                        <th>Familiya</th>
+                        <th>Guruh</th>
+                        <th>Tug‘ilgan sana</th>
+                        <th>Manzil</th>
+                        <th>Telefon</th>
+                        <th>Fakultet</th>
+                        <th>Yo‘nalish</th>
+                        <th>Kurs</th>
+                        <th>Ta'lim</th>
+                        <th>Fan</th>
+                        <th>Baho</th>
+                        <th>Davomat</th>
+                        <th>Amallar</th>
+                    </tr>
+                </thead>
+                <tbody id="studentList"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- DARS JADVALI -->
+    <section class="panel" id="jadval">
+        <h2>📅 Dars jadvali</h2>
+
+        <form id="lessonForm">
+            <select id="lessonDay" required>
+                <option value="">Hafta kunini tanlang</option>
+                <option>Dushanba</option>
+                <option>Seshanba</option>
+                <option>Chorshanba</option>
+                <option>Payshanba</option>
+                <option>Juma</option>
+                <option>Shanba</option>
+            </select>
+
+            <input id="lessonGroup" placeholder="Guruh raqami" required>
+
+            <input id="lessonFaculty" placeholder="Fakultet nomi" required>
+
+            <input id="lessonSubject" placeholder="Fan nomi" required>
+
+            <input id="teacher" placeholder="O‘qituvchi F.I.Sh." required>
+
+            <input id="room" placeholder="Xona raqami" required>
+
+            <label>
+                Boshlanish vaqti
+                <input id="startTime" type="time" required>
+            </label>
+
+            <label>
+                Tugash vaqti
+                <input id="endTime" type="time" required>
+            </label>
+
+            <button type="submit">Darsni jadvalga qo‘shish</button>
+        </form>
+
+        <br>
+
+        <input class="search" id="lessonSearch"
+               placeholder="Kun, guruh, fakultet, fan yoki o‘qituvchini qidirish...">
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Hafta kuni</th>
+                        <th>Guruh</th>
+                        <th>Fakultet</th>
+                        <th>Fan</th>
+                        <th>O‘qituvchi</th>
+                        <th>Xona</th>
+                        <th>Vaqt</th>
+                        <th>Amallar</th>
+                    </tr>
+                </thead>
+                <tbody id="lessonList"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- BAHOLAR -->
+    <section class="panel" id="baholar">
+        <h2>📊 Baholash tizimi</h2>
+        <p style="margin:10px 0">86–100 ball — A'lo</p>
+        <p style="margin:10px 0">71–85 ball — Yaxshi</p>
+        <p style="margin:10px 0">56–70 ball — Qoniqarli</p>
+        <p style="margin:10px 0">0–55 ball — Qoniqarsiz</p>
+
+        <button type="button" onclick="exportStudents()">
+            Talabalar ma'lumotlarini yuklab olish
+        </button>
+
+        <br><br>
+
+        <button type="button" class="secondary" onclick="exportLessons()">
+            Dars jadvalini yuklab olish
+        </button>
+    </section>
+
+</div>
+
+<footer>
+    <p>Talabalarning elektron kundaligi © 2026</p>
+    <p style="margin-top:8px">Ta'lim jarayonini boshqarish tizimi</p>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function loadData(key) {
+    try {
+        const data = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(data) ? data : [];
+    } catch {
+        return [];
+    }
+}
+
+let students = loadData("universityStudents");
+let lessons = loadData("universityLessons");
+
+function saveStudents() {
+    localStorage.setItem("universityStudents", JSON.stringify(students));
+}
+
+function saveLessons() {
+    localStorage.setItem("universityLessons", JSON.stringify(lessons));
+}
+
+// TALABANI QO'SHISH
+$("studentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const student = {
+        id: $("studentId").value.trim(),
+        name: $("name").value.trim(),
+        surname: $("surname").value.trim(),
+        group: $("group").value.trim(),
+        birthDate: $("birthDate").value,
+        address: $("address").value.trim(),
+        phone: $("phone").value.trim(),
+        email: $("email").value.trim(),
+        faculty: $("faculty").value,
+        direction: $("direction").value.trim(),
+        course: $("course").value,
+        education: $("education").value,
+        subject: $("subject").value,
+        grade: Number($("grade").value),
+        attendance: $("attendanceInput").value
+    };
+
+    if (students.some(s => s.id.toLowerCase() === student.id.toLowerCase())) {
+        alert("Bu ID raqami bilan talaba avval qo‘shilgan!");
+        return;
+    }
+
+    if (!Number.isFinite(student.grade) ||
+        student.grade < 0 || student.grade > 100) {
+        alert("Baho 0 dan 100 gacha bo‘lishi kerak!");
+        return;
+    }
+
+    students.push(student);
+    saveStudents();
+    renderStudents();
+    $("studentForm").reset();
+
+    alert("Talaba muvaffaqiyatli qo‘shildi!");
+});
+
+// TALABALAR RO'YXATI
+function renderStudents() {
+    const query = $("studentSearch").value.toLowerCase().trim();
+
+    const filtered = students.filter(s =>
+        [
+            s.id, s.name, s.surname, s.group,
+            s.birthDate, s.address, s.phone, s.email,
+            s.faculty, s.direction, s.course,
+            s.education, s.subject
+        ].some(v => String(v || "").toLowerCase().includes(query))
+    );
+
+    $("studentList").innerHTML = "";
+
+    if (!filtered.length) {
+        $("studentList").innerHTML =
+            '<tr><td colspan="16">Talabalar topilmadi</td></tr>';
+    }
+
+    filtered.forEach((s, i) => {
+        const index = students.indexOf(s);
+        const row = document.createElement("tr");
+
+        const values = [
+            i + 1, s.id, s.name, s.surname, s.group,
+            s.birthDate, s.address, s.phone || "—",
+            s.faculty, s.direction, s.course, s.education,
+            s.subject, s.grade, s.attendance
+        ];
+
+        values.forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value || "—";
+            row.appendChild(td);
+        });
+
+        const actions = document.createElement("td");
+
+        const edit = document.createElement("button");
+        edit.textContent = "Tahrirlash";
+        edit.className = "small-btn";
+        edit.onclick = () => editStudent(index);
+
+        const del = document.createElement("button");
+        del.textContent = "O‘chirish";
+        del.className = "small-btn delete";
+        del.onclick = () => deleteStudent(index);
+
+        actions.append(edit, del);
+        row.appendChild(actions);
+        $("studentList").appendChild(row);
+    });
+
+    updateStats();
+}
+
+function deleteStudent(index) {
+    if (confirm("Talaba ma'lumotlarini o‘chirasizmi?")) {
+        students.splice(index, 1);
+        saveStudents();
+        renderStudents();
+    }
+}
+
+function editStudent(index) {
+    const s = students[index];
+
+    const fields = [
+        ["id", "Talaba ID", "id"],
+        ["name", "Ism", "name"],
+        ["surname", "Familiya", "surname"],
+        ["group", "Guruh", "group"],
+        ["birthDate", "Tug‘ilgan sana (YYYY-MM-DD)", "birthDate"],
+        ["address", "Manzil", "address"],
+        ["phone", "Telefon", "phone"],
+        ["email", "Elektron pochta", "email"],
+        ["faculty", "Fakultet", "faculty"],
+        ["direction", "Yo‘nalish", "direction"],
+        ["course", "Kurs", "course"],
+        ["education", "Ta'lim shakli", "education"],
+        ["subject", "Fan", "subject"],
+        ["grade", "Baho (0–100)", "grade"],
+        ["attendance", "Davomat: Keldi yoki Kelmadi", "attendance"]
+    ];
+
+    const updated = {};
+
+    for (const [key, label] of fields) {
+        const value = prompt(label + ":", s[key] ?? "");
+        if (value === null) return;
+        updated[key] = value.trim();
+    }
+
+    const grade = Number(updated.grade);
+
+    if (!updated.id || !updated.name || !updated.surname ||
+        !updated.group || !updated.birthDate || !updated.address ||
+        !updated.faculty || !updated.direction ||
+        !Number.isFinite(grade) || grade < 0 || grade > 100) {
+        alert("Ma'lumotlarni to‘g‘ri kiriting!");
+        return;
+    }
+
+    if (students.some((other, i) =>
+        i !== index && other.id.toLowerCase() === updated.id.toLowerCase()
+    )) {
+        alert("Bu ID boshqa talabaga tegishli!");
+        return;
+    }
+
+    updated.grade = grade;
+
+    const attendance = updated.attendance.toLowerCase();
+    if (attendance !== "keldi" && attendance !== "kelmadi") {
+        alert("Davomat Keldi yoki Kelmadi bo‘lishi kerak!");
+        return;
+    }
+
+    updated.attendance =
+        attendance === "keldi" ? "Keldi" : "Kelmadi";
+
+    students[index] = {...s, ...updated};
+    saveStudents();
+    renderStudents();
+}
+
+$("studentSearch").addEventListener("input", renderStudents);
+
+// DARS JADVALI
+$("lessonForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const lesson = {
+        day: $("lessonDay").value,
+        group: $("lessonGroup").value.trim(),
+        faculty: $("lessonFaculty").value.trim(),
+        subject: $("lessonSubject").value.trim(),
+        teacher: $("teacher").value.trim(),
+        room: $("room").value.trim(),
+        start: $("startTime").value,
+        end: $("endTime").value
+    };
+
+    if (lesson.end <= lesson.start) {
+        alert("Darsning tugash vaqti boshlanish vaqtidan keyin bo‘lishi kerak!");
+        return;
+    }
+
+    lessons.push(lesson);
+    saveLessons();
+    renderLessons();
+    $("lessonForm").reset();
+
+    alert("Dars jadvalga qo‘shildi!");
+});
+
+function renderLessons() {
+    const query = $("lessonSearch").value.toLowerCase().trim();
+
+    const dayOrder = [
+        "Dushanba", "Seshanba", "Chorshanba",
+        "Payshanba", "Juma", "Shanba"
+    ];
+
+    const filtered = lessons
+        .map((lesson, index) => ({...lesson, originalIndex: index}))
+        .filter(l =>
+            [l.day, l.group, l.faculty, l.subject, l.teacher, l.room]
+            .some(v => String(v || "").toLowerCase().includes(query))
+        )
+        .sort((a, b) =>
+            dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day) ||
+            a.start.localeCompare(b.start)
+        );
+
+    $("lessonList").innerHTML = "";
+
+    if (!filtered.length) {
+        $("lessonList").innerHTML =
+            '<tr><td colspan="9">Darslar topilmadi</td></tr>';
+    }
+
+    filtered.forEach((l, i) => {
+        const row = document.createElement("tr");
+
+        [
+            i + 1, l.day, l.group, l.faculty,
+            l.subject, l.teacher, l.room,
+            l.start + " – " + l.end
+        ].forEach(value => {
+            const td = document.createElement("td");
+            td.textContent = value;
+            row.appendChild(td);
+        });
+
+        const actions = document.createElement("td");
+
+        const edit = document.createElement("button");
+        edit.textContent = "Tahrirlash";
+        edit.className = "small-btn";
+        edit.onclick = () => editLesson(l.originalIndex);
+
+        const del = document.createElement("button");
+        del.textContent = "O‘chirish";
+        del.className = "small-btn delete";
+        del.onclick = () => deleteLesson(l.originalIndex);
+
+        actions.append(edit, del);
+        row.appendChild(actions);
+        $("lessonList").appendChild(row);
+    });
+
+    $("lessonTotal").textContent = lessons.length;
+}
+
+function deleteLesson(index) {
+    if (confirm("Ushbu darsni o‘chirasizmi?")) {
+        lessons.splice(index, 1);
+        saveLessons();
+        renderLessons();
+    }
+}
+
+function editLesson(index) {
+    const l = lessons[index];
+
+    const fields = [
+        ["day", "Hafta kuni"],
+        ["group", "Guruh"],
+        ["faculty", "Fakultet"],
+        ["subject", "Fan"],
+        ["teacher", "O‘qituvchi"],
+        ["room", "Xona"],
+        ["start", "Boshlanish vaqti (HH:MM)"],
+        ["end", "Tugash vaqti (HH:MM)"]
+    ];
+
+    const updated = {};
+
+    for (const [key, label] of fields) {
+        const value = prompt(label + ":", l[key]);
+        if (value === null || !value.trim()) return;
+        updated[key] = value.trim();
+    }
+
+    if (!/^\d{2}:\d{2}$/.test(updated.start) ||
+        !/^\d{2}:\d{2}$/.test(updated.end) ||
+        updated.end <= updated.start) {
+        alert("Dars vaqtlarini to‘g‘ri kiriting!");
+        return;
+    }
+
+    lessons[index] = updated;
+    saveLessons();
+    renderLessons();
+}
+
+$("lessonSearch").addEventListener("input", renderLessons);
+
+// STATISTIKA
+function updateStats() {
+    $("total").textContent = students.length;
+
+    const average = students.length
+        ? students.reduce((sum, s) => sum + Number(s.grade), 0)
+          / students.length
+        : 0;
+
+    $("average").textContent = average.toFixed(2);
+
+    const present = students.filter(
+        s => s.attendance === "Keldi"
+    ).length;
+
+    $("attendance").textContent = students.length
+        ? Math.round(present / students.length * 100) + "%"
+        : "0%";
+}
+
+// CSV FAYLGA YUKLASH
+function downloadCSV(filename, headers, rows) {
+    const cell = value =>
+        '"' + String(value ?? "").replace(/"/g, '""') + '"';
+
+    const csv = "\uFEFF" +
+        [headers, ...rows]
+        .map(row => row.map(cell).join(";"))
+        .join("\r\n");
+
+    const blob = new Blob([csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = filename;
+    a.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportStudents() {
+    const headers = [
+        "ID", "Ism", "Familiya", "Guruh",
+        "Tug‘ilgan sana", "Manzil", "Telefon",
+        "Email", "Fakultet", "Yo‘nalish", "Kurs",
+        "Ta'lim shakli", "Fan", "Baho", "Davomat"
+    ];
+
+    const rows = students.map(s => [
+        s.id, s.name, s.surname, s.group, s.birthDate,
+        s.address, s.phone, s.email, s.faculty,
+        s.direction, s.course, s.education, s.subject,
+        s.grade, s.attendance
+    ]);
+
+    downloadCSV("talabalar.csv", headers, rows);
+}
+
+function exportLessons() {
+    const headers = [
+        "Hafta kuni", "Guruh", "Fakultet", "Fan",
+        "O‘qituvchi", "Xona", "Boshlanish", "Tugash"
+    ];
+
+    const rows = lessons.map(l => [
+        l.day, l.group, l.faculty, l.subject,
+        l.teacher, l.room, l.start, l.end
+    ]);
+
+    downloadCSV("dars_jadvali.csv", headers, rows);
+}
+
+// DASTLABKI KO'RINISH
+renderStudents();
+renderLessons();
+</script>
+
+</body>
+</
